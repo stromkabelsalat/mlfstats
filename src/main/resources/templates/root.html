@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en" xml:lang="en">
+
+<head>
+	<title>mlfstats</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<table th:unless="${root.categories.empty}"
+		style="border-collapse: collapse; border-spacing: 0; font-family: monospace; text-align: right">
+		<caption style="display: none">Statistik</caption>
+		<thead style="font-weight: bold">
+			<tr>
+				<th style="border: 1px solid; padding: 0.5em;">Kategorie</th>
+				<th style="border: 1px solid; padding: 0.5em;">Jahr</th>
+				<th style="border: 1px solid; padding: 0.5em;">Monat</th>
+				<th style="border: 1px solid; padding: 0.5em;">Beiträge</th>
+				<th style="border: 1px solid; padding: 0.5em;" colspan="4">Absolute Häufigkeit</th>
+				<th style="border: 1px solid; padding: 0.5em;">Kumulierte Häufigkeit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<th:block th:each="category, categoryStats: ${root.categories}">
+				<th:block th:each="year, yearStats : ${category.years}">
+					<th:block th:each="month, monthStats : ${year.months}">
+						<tr>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${category.name}"
+								th:rowspan="${category.rowspan}" th:if="${yearStats.first and monthStats.first}">
+								Lorem ipsum
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${year.number}"
+								th:rowspan="${year.rowspan}" th:if="${monthStats.first}">
+								1999
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${month.number}">
+								12
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;">
+								<a href="index.php?id=1337" th:href="'index.php?id=' + ${month.firstId}"
+									th:text="${month.firstId}">1337</a>
+								–
+								<a href="index.php?id=1338" th:href="'index.php?id=' + ${month.lastId}"
+									th:text="${month.lastId}">1338</a>
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${month.absoluteFrequency}">
+								1337
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${year.absoluteFrequency}"
+								th:rowspan="${year.rowspan}" th:if="${monthStats.first}">
+								1337
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${category.absoluteFrequency}"
+								th:rowspan="${category.rowspan}" th:if="${yearStats.first and monthStats.first}">
+								1337
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${root.absoluteFrequency}"
+								th:rowspan="${root.rowspan}"
+								th:if="${categoryStats.first and yearStats.first and monthStats.first}">
+								1337
+							</td>
+							<td style="border: 1px solid; padding: 0.5em;" th:text="${month.cumulativeFrequency}">
+								1337
+							</td>
+						</tr>
+					</th:block>
+				</th:block>
+			</th:block>
+		</tbody>
+	</table>
+</body>
+
+</html>
